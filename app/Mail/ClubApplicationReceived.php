@@ -20,7 +20,7 @@ class ClubApplicationReceived extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Nueva solicitud para Ivory Crown',
+            subject: 'Nueva solicitud para Opal Pearls',
         );
     }
 

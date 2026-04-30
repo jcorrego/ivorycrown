@@ -1,4 +1,4 @@
-<h1>Nueva solicitud para Ivory Crown</h1>
+<h1>Nueva solicitud para Opal Pearls</h1>
 
 <p><strong>Nombre:</strong> {{ $application->nombre }}</p>
 <p><strong>Personaje:</strong> {{ $application->personaje }}</p>

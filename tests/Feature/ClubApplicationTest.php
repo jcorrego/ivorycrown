@@ -12,11 +12,11 @@ class ClubApplicationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_home_renders_the_ivory_crown_app(): void
+    public function test_home_renders_the_opal_pearls_app(): void
     {
         $this->get('/')
             ->assertOk()
-            ->assertSee('Ivory Crown · Club Ecuestre · Lightning Star')
+            ->assertSee('Opal Pearls · Club Ecuestre · Lightning Star')
             ->assertSee('id="root"', false);
     }
 

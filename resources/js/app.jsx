@@ -4,14 +4,15 @@ import "../css/app.css";
 
 // ============ ORNAMENTS (original SVG decorations) ============
 
-const Crown = ({ size = 40, color = "currentColor" }) => (
+const PearlMark = ({ size = 40, color = "currentColor" }) => (
   <svg width={size} height={size * 0.75} viewBox="0 0 40 30" fill="none" stroke={color} strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round">
-    <path d="M4 24 L6 10 L12 18 L20 6 L28 18 L34 10 L36 24 Z" fill="none"/>
-    <line x1="4" y1="27" x2="36" y2="27"/>
-    <circle cx="6" cy="9" r="1.2" fill={color}/>
-    <circle cx="20" cy="5" r="1.4" fill={color}/>
-    <circle cx="34" cy="9" r="1.2" fill={color}/>
-    <circle cx="20" cy="22" r="1.5" fill="none"/>
+    <circle cx="20" cy="14" r="7.5" fill="none"/>
+    <circle cx="10" cy="18" r="4.5" fill="none"/>
+    <circle cx="30" cy="18" r="4.5" fill="none"/>
+    <path d="M16 11 Q20 7, 24 11"/>
+    <path d="M17 15 Q20 18, 23 15"/>
+    <path d="M5 25 Q20 28, 35 25"/>
+    <circle cx="20" cy="14" r="1.4" fill={color}/>
   </svg>
 );
 
@@ -80,10 +81,10 @@ function Nav({ activeSection }) {
       <div className="nav__inner">
         <a href="#inicio" className="nav__brand">
           <div className="nav__logo">
-            <img src="assets/logo.jpg" alt="Ivory Crown" className="nav__logo-img"/>
+            <img src="assets/logo.jpg" alt="Opal Pearls" className="nav__logo-img"/>
           </div>
           <div className="nav__brand-text">
-            <div className="nav__brand-name">Ivory Crown</div>
+            <div className="nav__brand-name">Opal Pearls</div>
             <div className="nav__brand-sub">Lightning Star · Club Ecuestre</div>
           </div>
         </a>
@@ -117,7 +118,7 @@ function Hero() {
         <div className="hero__logo">
           <div className="hero__logo-frame">
             <div className="hero__logo-inner">
-              <img src="assets/logo.jpg" alt="Ivory Crown" className="hero__logo-img"/>
+              <img src="assets/logo.jpg" alt="Opal Pearls" className="hero__logo-img"/>
             </div>
           </div>
         </div>
@@ -127,9 +128,9 @@ function Hero() {
           <span className="hero__sparkle"><Sparkle size={9}/></span>
         </div>
         <h1 className="hero__title">
-          <span className="hero__title-line">Ivory</span>
+          <span className="hero__title-line">Opal</span>
           <span className="hero__title-amp">&</span>
-          <span className="hero__title-line">Crown</span>
+          <span className="hero__title-line">Pearls</span>
         </h1>
         <div className="hero__divider"><Divider width={420}/></div>
         <p className="hero__lede">
@@ -173,7 +174,7 @@ function Hero() {
 function Quienes() {
   const pillars = [
     {
-      glyph: <Crown size={36}/>,
+      glyph: <PearlMark size={36}/>,
       title: "Amistad",
       body: "Más que un club de juego: somos un grupo de amigas que se acompaña en las cabalgatas, las carreras y las charlas largas en Discord."
     },
@@ -199,7 +200,7 @@ function Quienes() {
             <span className="quienes__dropcap">E</span>mpezamos una tarde de primavera, cuando unas cuantas jugadoras de Lightning Star buscábamos un sitio sin prisas para montar y charlar. Queríamos un club pequeño y cuidado, casi familiar.
           </p>
           <p>
-            En <em>Ivory Crown</em> nos lo tomamos con calma: cada paseo tiene su historia, cada amistad tiene su tiempo y cada miembro encuentra su sitio. Nos vemos en establos cubiertos de hiedra, hacemos meriendas junto al fuego y recorremos los senderos antiguos de Jorvik.
+            En <em>Opal Pearls</em> nos lo tomamos con calma: cada paseo tiene su historia, cada amistad tiene su tiempo y cada miembro encuentra su sitio. Nos vemos en establos cubiertos de hiedra, hacemos meriendas junto al fuego y recorremos los senderos antiguos de Jorvik.
           </p>
           <p>
             Si te gustan los atardeceres dorados, las flores silvestres y la idea de un club pequeño donde se acuerdan de tu nombre — quizá tu lugar esté aquí.
@@ -213,17 +214,17 @@ function Quienes() {
         <aside className="quienes__card">
           <div className="quienes__card-frame">
             <div className="quienes__card-inner">
-              <div className="quienes__card-crest"><Crown size={44} color="var(--gold)"/></div>
+              <div className="quienes__card-crest"><PearlMark size={44} color="var(--gold)"/></div>
               <div className="quienes__card-title">Datos del club</div>
               <div className="quienes__card-divider"><Divider width={200}/></div>
               <dl className="quienes__heraldry">
                 <div><dt>Servidor</dt><dd>Lightning Star</dd></div>
                 <div><dt>Idioma</dt><dd>Español</dd></div>
-                <div><dt>Estética</dt><dd>Cottage Royal</dd></div>
-                <div><dt>Colores</dt><dd>Marfil · Verde Musgo · Oro Viejo</dd></div>
+                <div><dt>Estética</dt><dd>Cottage Perlado</dd></div>
+                <div><dt>Colores</dt><dd>Ópalo · Rosa Perla · Verde Musgo</dd></div>
                 <div><dt>Animal</dt><dd>El caballo blanco</dd></div>
                 <div><dt>Flor</dt><dd>Rosa silvestre</dd></div>
-                <div><dt>Lema</dt><dd><em>«Fuerza suave, corona eterna»</em></dd></div>
+                <div><dt>Lema</dt><dd><em>«Brillo suave, amistad eterna»</em></dd></div>
               </dl>
             </div>
           </div>
@@ -411,7 +412,7 @@ function Unete() {
       <section id="unete" className="section section--cream">
         <SectionHeader eyebrow="Capítulo IV" title="¡Solicitud recibida!" subtitle="Te responderemos pronto"/>
         <div className="success">
-          <div className="success__crest"><Crown size={72} color="var(--gold)"/></div>
+          <div className="success__crest"><PearlMark size={72} color="var(--gold)"/></div>
           <h3 className="success__title">¡Bienvenida, {form.nombre.split(" ")[0] || "amiga"}!</h3>
           <Divider width={280}/>
           <p className="success__msg">
@@ -446,7 +447,7 @@ function Unete() {
       <div className="form-wrap">
         <div className="form-side">
           <div className="form-side__inner">
-            <Crown size={48} color="var(--gold)"/>
+            <PearlMark size={48} color="var(--gold)"/>
             <h3 className="form-side__title">¿Qué buscamos?</h3>
             <ul className="form-side__list">
               <li><span className="form-side__bullet"><Star4 size={10}/></span>Estar en el servidor Lightning Star</li>
@@ -465,7 +466,7 @@ function Unete() {
 
         <form className="form" onSubmit={submit} noValidate>
           <div className="form__seal">
-            <Crown size={32} color="var(--gold)"/>
+            <PearlMark size={32} color="var(--gold)"/>
           </div>
           <h3 className="form__title">Preséntate</h3>
           <p className="form__sub">Los campos con <span className="req">✦</span> son obligatorios.</p>
@@ -530,7 +531,7 @@ function Unete() {
             </div>
           </Field>
 
-          <Field label="¿Por qué te gustaría unirte a Ivory Crown?" required err={touched.motivo && errors.motivo}>
+          <Field label="¿Por qué te gustaría unirte a Opal Pearls?" required err={touched.motivo && errors.motivo}>
             <textarea rows="5" value={form.motivo} onChange={e => set("motivo", e.target.value)}
               onBlur={() => setTouched(t => ({ ...t, motivo: 1 }))}
               placeholder="Cuéntanos un poco sobre ti, cómo te gusta jugar y qué esperas del club…"/>
@@ -582,11 +583,11 @@ function Footer() {
       <div className="footer__inner">
         <div className="footer__crest">
           <div className="footer__logo-frame">
-            <img src="assets/logo.jpg" alt="Ivory Crown" className="footer__logo-img"/>
+            <img src="assets/logo.jpg" alt="Opal Pearls" className="footer__logo-img"/>
           </div>
         </div>
-        <div className="footer__name">Ivory Crown</div>
-        <div className="footer__motto"><em>«Fuerza suave, corona eterna»</em></div>
+        <div className="footer__name">Opal Pearls</div>
+        <div className="footer__motto"><em>«Brillo suave, amistad eterna»</em></div>
         <div className="footer__tag">Lightning Star · Club Ecuestre · MMXXVI</div>
         <Divider width={240}/>
         <div className="footer__links">
@@ -630,7 +631,7 @@ function Info() {
 
       <div className="info__intro">
         <p>
-          Ivory Crown se reconoce por dos detalles: un <em>caballo</em> y un <em>uniforme</em>. Los usamos en los eventos del club — ceremonias, fotografías oficiales y las quedadas grandes de cada estación.
+          Opal Pearls se reconoce por dos detalles: un <em>caballo</em> y un <em>uniforme</em>. Los usamos en los eventos del club — ceremonias, fotografías oficiales y las quedadas grandes de cada estación.
         </p>
       </div>
 
@@ -644,7 +645,7 @@ function Info() {
           <figure className="info__horse">
             <div className="info__horse-frame">
               <div className="info__horse-inner info__horse-inner--horse">
-                <img src="assets/horse-official.png" alt="Dutch Warmblood capa 7 — caballo oficial de Ivory Crown" className="info__horse-img"/>
+                <img src="assets/horse-official.png" alt="Dutch Warmblood capa 7 — caballo oficial de Opal Pearls" className="info__horse-img"/>
               </div>
             </div>
           </figure>
@@ -668,7 +669,7 @@ function Info() {
           <figure className="info__horse">
             <div className="info__horse-frame">
               <div className="info__horse-inner info__horse-inner--uniform">
-                <img src="assets/uniform-official.png" alt="Uniforme oficial de Ivory Crown — jersey trenzado marfil y monturas rosa" className="info__horse-img"/>
+                <img src="assets/uniform-official.png" alt="Uniforme oficial de Opal Pearls — jersey trenzado marfil y monturas rosa" className="info__horse-img"/>
               </div>
             </div>
           </figure>
@@ -686,7 +687,7 @@ function Info() {
               </ul>
             </div>
             <div className="info__kit-col">
-              <div className="info__kit-head"><Crown size={16} color="currentColor"/><span>Personaje</span></div>
+              <div className="info__kit-head"><PearlMark size={16} color="currentColor"/><span>Personaje</span></div>
               <ul className="info__kit-list">
                 <li>Casco <em>Paseo al Ocaso</em> · beige</li>
                 <li>Jersey de punto blanco <em>Encanto Escandinavo</em></li>
@@ -748,7 +749,7 @@ function NormasModal({ open, onClose }) {
 
         <div className="modal__inner">
           <div className="modal__seal">
-            <Crown size={42} color="var(--gold)"/>
+            <PearlMark size={42} color="var(--gold)"/>
           </div>
           <div className="modal__eye">Capítulo V · Normas del Club</div>
           <h2 id="normas-title" className="modal__title">Normas del club</h2>
@@ -779,7 +780,7 @@ function NormasModal({ open, onClose }) {
 
           <div className="modal__sign">
             <Divider width={200}/>
-            <p className="modal__sign-text"><em>Gracias por formar parte de Ivory Crown.</em></p>
+            <p className="modal__sign-text"><em>Gracias por formar parte de Opal Pearls.</em></p>
           </div>
 
           <button className="btn btn--primary modal__btn" onClick={onClose}>
