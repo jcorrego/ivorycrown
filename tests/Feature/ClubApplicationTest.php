@@ -52,7 +52,8 @@ class ClubApplicationTest extends TestCase
         $this->assertSame(['Fotografía', 'Eventos sociales'], $application->intereses);
 
         Mail::assertSent(ClubApplicationReceived::class, function (ClubApplicationReceived $mail) use ($application) {
-            return $mail->application->is($application);
+            return $mail->application->is($application)
+                && $mail->hasTo('isabellaorregob@icloud.com');
         });
     }
 

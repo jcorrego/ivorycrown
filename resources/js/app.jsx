@@ -416,19 +416,19 @@ function Unete() {
           <h3 className="success__title">¡Bienvenida, {form.nombre.split(" ")[0] || "amiga"}!</h3>
           <Divider width={280}/>
           <p className="success__msg">
-            Hemos recibido tu solicitud. Alguien del club te escribirá por Discord
-            a <strong>{form.discord}</strong> en unos <strong>tres días</strong> para invitarte
+            Hemos recibido tu solicitud. Alguien del club te escribirá al buzón del juego
+            de <strong>{form.personaje}</strong> en unos <strong>tres días</strong> para invitarte
             a una primera cabalgata de prueba.
           </p>
           <p className="success__msg">
             Mientras tanto, deja a <strong>{form.personaje}</strong> a punto — cepillado, herraduras frescas y un atuendo bonito a tono con la estación.
           </p>
           <p className="success__msg success__msg--cta">
-            ¿Aún no estás en nuestro Discord? Únete ya y preséntate en el canal de bienvenida.
+            Revisa tu correo del juego estos días para no perderte nuestra respuesta.
           </p>
           <div className="success__actions">
-            <a href="https://discord.gg/4zYYGjcEw" target="_blank" rel="noopener noreferrer" className="btn btn--primary">
-              <span>Entrar al Discord</span>
+            <a href="#inicio" className="btn btn--primary">
+              <span>Volver al inicio</span>
               <span className="btn__shine" aria-hidden="true"></span>
             </a>
             <button className="btn btn--ghost" onClick={() => { setSubmitted(false); setSubmitError(""); setForm({ ...form, motivo: "", consentimiento: false }); }}>
