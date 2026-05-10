@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('nivel')->nullable();
             $table->unsignedTinyInteger('edad')->nullable();
             $table->string('discord');
-            $table->string('horario')->default('Tardes');
+            $table->json('horario')->nullable();
             $table->string('raza')->default('Cualquiera');
             $table->text('motivo');
             $table->json('intereses')->nullable();

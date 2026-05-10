@@ -30,8 +30,8 @@ class ClubApplicationTest extends TestCase
             'nivel' => 24,
             'edad' => 19,
             'discord' => 'clara#0000',
-            'horario' => 'Tardes',
-            'raza' => 'Andaluz',
+            'horario' => ['Tardes', 'Fines de semana'],
+            'raza' => 'Dutch Warmblood',
             'motivo' => 'Me gustaría unirme porque busco un club tranquilo y bonito para participar en eventos.',
             'intereses' => ['Fotografía', 'Eventos sociales'],
             'consentimiento' => true,
@@ -49,6 +49,7 @@ class ClubApplicationTest extends TestCase
         ]);
 
         $application = ClubApplication::firstOrFail();
+        $this->assertSame(['Tardes', 'Fines de semana'], $application->horario);
         $this->assertSame(['Fotografía', 'Eventos sociales'], $application->intereses);
 
         Mail::assertSent(ClubApplicationReceived::class, function (ClubApplicationReceived $mail) use ($application) {
@@ -69,7 +70,7 @@ class ClubApplicationTest extends TestCase
             'consentimiento' => false,
         ])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['nombre', 'personaje', 'discord', 'motivo', 'consentimiento']);
+            ->assertJsonValidationErrors(['nombre', 'personaje', 'discord', 'horario', 'motivo', 'consentimiento']);
 
         $this->assertDatabaseCount('club_applications', 0);
         Mail::assertNothingSent();

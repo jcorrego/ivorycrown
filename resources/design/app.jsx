@@ -343,7 +343,7 @@ function Unete() {
     nivel: "",
     edad: "",
     discord: "",
-    horario: "Tardes",
+    horario: ["Tardes"],
     raza: "Cualquiera",
     motivo: "",
     intereses: [],
@@ -353,6 +353,10 @@ function Unete() {
   const [touched, setTouched] = useState({});
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const toggleHorario = (it) => setForm(f => ({
+    ...f,
+    horario: f.horario.includes(it) ? f.horario.filter(x => x !== it) : [...f.horario, it]
+  }));
   const toggleInterest = (it) => setForm(f => ({
     ...f,
     intereses: f.intereses.includes(it) ? f.intereses.filter(x => x !== it) : [...f.intereses, it]
@@ -362,6 +366,7 @@ function Unete() {
     nombre: !form.nombre ? "El nombre es necesario" : null,
     personaje: !form.personaje ? "El nombre del personaje es necesario" : null,
     discord: !form.discord ? "El Discord es necesario para contactarte" : null,
+    horario: !form.horario.length ? "Elige al menos una franja horaria" : null,
     motivo: form.motivo.length < 20 ? "Cuéntanos un poco más (mín. 20 caracteres)" : null,
     consentimiento: !form.consentimiento ? "Debes aceptar las normas del club" : null,
   };
@@ -369,13 +374,35 @@ function Unete() {
 
   const submit = (e) => {
     e.preventDefault();
-    setTouched({ nombre: 1, personaje: 1, discord: 1, motivo: 1, consentimiento: 1 });
+    setTouched({ nombre: 1, personaje: 1, discord: 1, horario: 1, motivo: 1, consentimiento: 1 });
     if (!valid) return;
     setSubmitted(true);
     window.scrollTo({ top: document.getElementById("unete").offsetTop - 80, behavior: "smooth" });
   };
 
   const interests = ["Carreras", "Paseos & rol", "Fotografía", "Entrenamiento", "Misiones en grupo", "Eventos sociales"];
+  const scheduleOptions = ["Mañanas", "Tardes", "Noches", "Fines de semana"];
+  const horseOptions = [
+    "Cualquiera",
+    "Dutch Warmblood",
+    "Andaluz",
+    "Friesian",
+    "Pura Raza Inglesa",
+    "Akhal-Teké",
+    "Árabe",
+    "Mustang",
+    "Lusitano",
+    "Lipizzano",
+    "Paso Fino",
+    "Jorvik Wild Horse",
+    "Pony de Jorvik",
+    "Caballo de la Estrella del Norte",
+    "Quarter Horse Americano",
+    "Paint Horse Americano",
+    "Appaloosa",
+    "Percherón",
+    "Shire",
+  ];
 
   if (submitted) {
     return (
@@ -466,25 +493,22 @@ function Unete() {
               onBlur={() => setTouched(t => ({ ...t, discord: 1 }))} placeholder="usuario#0000"/>
           </Field>
 
-          <Field label="Horario habitual de juego">
-            <div className="seg">
-              {["Mañanas", "Tardes", "Noches", "Fines de semana"].map(opt => (
+          <Field label="Horario habitual de juego" required err={touched.horario && errors.horario}>
+            <div className="chips">
+              {scheduleOptions.map(opt => (
                 <button key={opt} type="button"
-                  className={form.horario === opt ? "seg__btn seg__btn--active" : "seg__btn"}
-                  onClick={() => set("horario", opt)}>{opt}</button>
+                  className={form.horario.includes(opt) ? "chip chip--on" : "chip"}
+                  onClick={() => toggleHorario(opt)}>
+                  {form.horario.includes(opt) && <Star4 size={10}/>}
+                  {opt}
+                </button>
               ))}
             </div>
           </Field>
 
           <Field label="Raza preferida de tu caballo">
             <select value={form.raza} onChange={e => set("raza", e.target.value)}>
-              <option>Cualquiera</option>
-              <option>Andaluz</option>
-              <option>Friesian</option>
-              <option>Pura Raza Inglesa</option>
-              <option>Akhal-Teké</option>
-              <option>Pony de Jorvik</option>
-              <option>Caballo de la Estrella del Norte</option>
+              {horseOptions.map(opt => <option key={opt}>{opt}</option>)}
             </select>
           </Field>
 

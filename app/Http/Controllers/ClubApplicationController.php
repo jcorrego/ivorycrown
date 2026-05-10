@@ -13,22 +13,38 @@ class ClubApplicationController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
+        $horarios = ['Mañanas', 'Tardes', 'Noches', 'Fines de semana'];
+        $razas = [
+            'Cualquiera',
+            'Dutch Warmblood',
+            'Andaluz',
+            'Friesian',
+            'Pura Raza Inglesa',
+            'Akhal-Teké',
+            'Árabe',
+            'Mustang',
+            'Lusitano',
+            'Lipizzano',
+            'Paso Fino',
+            'Jorvik Wild Horse',
+            'Pony de Jorvik',
+            'Caballo de la Estrella del Norte',
+            'Quarter Horse Americano',
+            'Paint Horse Americano',
+            'Appaloosa',
+            'Percherón',
+            'Shire',
+        ];
+
         $data = $request->validate([
             'nombre' => ['required', 'string', 'max:120'],
             'personaje' => ['required', 'string', 'max:120'],
             'nivel' => ['nullable', 'integer', 'min:1', 'max:30'],
             'edad' => ['nullable', 'integer', 'min:1', 'max:99'],
             'discord' => ['required', 'string', 'max:120'],
-            'horario' => ['required', Rule::in(['Mañanas', 'Tardes', 'Noches', 'Fines de semana'])],
-            'raza' => ['required', Rule::in([
-                'Cualquiera',
-                'Andaluz',
-                'Friesian',
-                'Pura Raza Inglesa',
-                'Akhal-Teké',
-                'Pony de Jorvik',
-                'Caballo de la Estrella del Norte',
-            ])],
+            'horario' => ['required', 'array', 'min:1'],
+            'horario.*' => ['string', Rule::in($horarios)],
+            'raza' => ['required', Rule::in($razas)],
             'motivo' => ['required', 'string', 'min:20', 'max:2000'],
             'intereses' => ['nullable', 'array'],
             'intereses.*' => ['string', Rule::in([

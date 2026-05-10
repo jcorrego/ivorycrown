@@ -26,6 +26,7 @@ class ClubApplication extends Model
     protected function casts(): array
     {
         return [
+            'horario' => 'array',
             'intereses' => 'array',
             'consentimiento' => 'boolean',
         ];
