@@ -17,7 +17,7 @@ const PearlMark = ({ size = 40, color = "currentColor" }) => (
 );
 
 const Divider = ({ width = 320 }) => (
-  <svg width={width} height="22" viewBox="0 0 320 22" fill="none" stroke="currentColor" strokeWidth="0.9" style={{ display: "block" }}>
+  <svg width={width} height="22" viewBox="0 0 320 22" fill="none" stroke="currentColor" strokeWidth="0.9" style={{ display: "block", maxWidth: "100%", height: "auto" }}>
     <line x1="0" y1="11" x2="120" y2="11"/>
     <line x1="200" y1="11" x2="320" y2="11"/>
     <path d="M130 11 L160 4 L190 11 L160 18 Z" fill="none"/>
@@ -133,7 +133,7 @@ function Hero() {
         </h1>
         <div className="hero__divider"><Divider width={420}/></div>
         <p className="hero__lede">
-          Un club tranquilo para quienes disfrutan de los detalles bonitos,<br/>
+          Un club tranquilo para quienes disfrutan de los detalles bonitos,{" "}<br/>
           los paseos sin prisa y las amistades de Jorvik.
         </p>
         <div className="hero__cta-row">

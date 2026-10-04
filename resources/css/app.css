@@ -98,6 +98,7 @@ button:disabled { cursor: wait; opacity: 0.72; }
   display: flex; align-items: center; gap: 32px;
 }
 .nav__link {
+  white-space: nowrap;
   text-decoration: none; color: var(--ink-soft);
   font-family: var(--sans-eyebrow); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
   transition: color 0.2s; position: relative; padding: 8px 0;
@@ -109,6 +110,7 @@ button:disabled { cursor: wait; opacity: 0.72; }
   background: var(--gold); transform: translate(-50%, 0) rotate(45deg);
 }
 .nav__cta {
+  white-space: nowrap;
   text-decoration: none;
   background: var(--moss);
   color: var(--ivory);
@@ -1199,8 +1201,15 @@ button:disabled { cursor: wait; opacity: 0.72; }
 }
 
 /* ============ RESPONSIVE ============ */
+@media (max-width: 1180px) {
+  .nav__inner { gap: 24px; }
+  .nav__links { gap: 20px; }
+  .nav__link { letter-spacing: 0.16em; }
+  .nav__brand-sub { display: none; }
+}
 @media (max-width: 960px) {
   .nav__links { display: none; }
+  .nav__cta { margin-left: auto; }
   .quienes__grid { grid-template-columns: 1fr; gap: 40px; }
   .pillars { grid-template-columns: 1fr; }
   .week { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1211,6 +1220,13 @@ button:disabled { cursor: wait; opacity: 0.72; }
   .hero__corner { display: none; }
 }
 @media (max-width: 560px) {
+  .nav__inner { padding: 0 20px; gap: 12px; }
+  .nav__brand { gap: 10px; min-width: 0; }
+  .nav__logo { width: 38px; height: 38px; }
+  .nav__brand-name { font-size: 21px; white-space: nowrap; }
+  .nav__cta { padding: 9px 14px; font-size: 10px; letter-spacing: 0.16em; }
+  .hero__lede { font-size: 19px; }
+  .hero__lede br { display: none; }
   .section { padding: 80px 20px; }
   .hero { padding: 100px 20px 60px; }
   .hero__meta { flex-direction: column; gap: 18px; padding: 20px; }
@@ -1218,4 +1234,11 @@ button:disabled { cursor: wait; opacity: 0.72; }
   .form { padding: 44px 24px 32px; }
   .seasons__grid { grid-template-columns: 1fr; }
   .week { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 380px) {
+  .nav__inner { padding: 0 16px; gap: 10px; }
+  .nav__brand { gap: 8px; }
+  .nav__logo { width: 34px; height: 34px; }
+  .nav__brand-name { font-size: 18px; letter-spacing: 0.02em; }
+  .nav__cta { padding: 8px 10px; letter-spacing: 0.1em; }
 }
