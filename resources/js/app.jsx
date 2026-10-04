@@ -71,15 +71,30 @@ function Nav({ activeSection }) {
     { id: "unete", label: "Únete" },
   ];
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    // The dropdown only exists below 960px; close it if the window grows past that.
+    const onResize = () => { if (window.innerWidth > 960) setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open]);
+  const close = () => setOpen(false);
+
   return (
-    <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
+    <nav className={`nav ${scrolled ? "nav--scrolled" : ""} ${open ? "nav--open" : ""}`}>
       <div className="nav__inner">
-        <a href="#inicio" className="nav__brand">
+        <a href="#inicio" className="nav__brand" onClick={close}>
           <div className="nav__logo">
             <img src="assets/logo.jpg" alt="Opal Pearls" className="nav__logo-img"/>
           </div>
@@ -98,6 +113,37 @@ function Nav({ activeSection }) {
           ))}
         </ul>
         <a href={JOIN_FORM_URL} target="_blank" rel="noopener noreferrer" className="nav__cta">Quiero unirme</a>
+        <button
+          type="button"
+          className="nav__toggle"
+          aria-expanded={open}
+          aria-controls="nav-menu"
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          onClick={() => setOpen(o => !o)}
+        >
+          <span className="nav__toggle-bar"></span>
+          <span className="nav__toggle-bar"></span>
+          <span className="nav__toggle-bar"></span>
+        </button>
+      </div>
+      <div id="nav-menu" className="nav__menu" hidden={!open}>
+        <ul className="nav__menu-list">
+          {items.map(it => (
+            <li key={it.id}>
+              <a
+                href={`#${it.id}`}
+                className={activeSection === it.id ? "nav__menu-link nav__menu-link--active" : "nav__menu-link"}
+                onClick={close}
+              >
+                {it.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href={JOIN_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--block nav__menu-cta" onClick={close}>
+          <span>Quiero unirme</span>
+          <span className="btn__shine" aria-hidden="true"></span>
+        </a>
       </div>
     </nav>
   );
