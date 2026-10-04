@@ -468,16 +468,89 @@ button:disabled { cursor: wait; opacity: 0.72; }
 }
 .cal__intro strong { color: var(--gold-soft); font-style: normal; font-weight: 600; }
 
+/* Weekly schedule */
+.week {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px;
+  background: rgba(217,183,116,0.3);
+  border: 1px solid rgba(217,183,116,0.3);
+}
+.week__day {
+  background: var(--moss-mid);
+  padding: 28px 16px 26px;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+.week__name {
+  font-family: var(--serif-display); font-style: italic;
+  font-size: 42px; line-height: 0.95; color: var(--gold-soft);
+}
+.week__meta {
+  font-family: var(--sans-eyebrow);
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(106,67,24,0.8); margin-top: 8px;
+}
+.week__time {
+  font-family: var(--sans-eyebrow);
+  font-size: 12px; letter-spacing: 0.12em;
+  color: var(--gold-onrose); margin-top: 4px;
+}
+.week__rule {
+  width: 32px; height: 1px;
+  background: rgba(138,90,32,0.45);
+  margin: 16px 0 14px;
+}
+.week__opt-label {
+  font-family: var(--sans-eyebrow);
+  font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(106,67,24,0.72);
+}
+.week__opt-name {
+  font-family: var(--serif-display); font-style: italic; font-weight: 500;
+  font-size: 22px; line-height: 1.15; color: var(--gold-onrose);
+  margin-top: 2px;
+}
+.week__or {
+  font-family: var(--serif-display); font-style: italic;
+  font-size: 15px; color: var(--gold-soft);
+  margin: 6px 0;
+}
+
+.cal__rules {
+  list-style: none;
+  max-width: 1000px; margin: 32px auto 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 32px;
+  font-size: 16px; line-height: 1.5; font-style: italic;
+  color: rgba(251,246,232,0.88);
+}
+.cal__rules li { display: flex; gap: 10px; align-items: flex-start; }
+.cal__rules strong { color: var(--gold-soft); font-style: normal; font-weight: 600; }
+.cal__rules-icon { color: var(--gold-soft); padding-top: 6px; flex-shrink: 0; }
+
+.cal__head {
+  margin: 96px auto 40px;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+.cal__head > svg { color: var(--gold-soft); }
+.cal__head-title {
+  font-family: var(--serif-display); font-style: italic;
+  font-size: 42px; color: var(--ivory); margin: 18px 0 8px;
+}
+.cal__head-sub {
+  font-family: var(--sans-eyebrow);
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(251,246,232,0.6); margin: 0;
+}
+
 .cal__grid {
   max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
 }
 .evt {
   position: relative;
-  display: grid;
-  grid-template-columns: 100px 1px 1fr;
-  gap: 22px;
-  padding: 28px 24px 28px 22px;
+  display: flex; flex-direction: column;
+  padding: 28px 26px;
   background: var(--moss-mid);
   border: 1px solid rgba(217,183,116,0.3);
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -489,23 +562,8 @@ button:disabled { cursor: wait; opacity: 0.72; }
 }
 .evt--gold { background: linear-gradient(135deg, var(--moss-mid), #dcc0b3); }
 .evt--cream { background: linear-gradient(135deg, var(--moss-mid), #c19c8e); }
-.evt__date {
-  text-align: center;
-  display: flex; flex-direction: column; justify-content: center;
-}
-.evt__day {
-  font-family: var(--serif-display); font-style: italic;
-  font-size: 44px; line-height: 0.95; color: var(--gold-soft);
-}
-.evt__month {
-  font-family: var(--sans-eyebrow);
-  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-  color: rgba(251,246,232,0.75); margin-top: 8px;
-}
-.evt__divider { background: rgba(217,183,116,0.35); }
-.evt__body { display: flex; flex-direction: column; }
 .evt__meta {
-  display: flex; gap: 12px; align-items: center; margin-bottom: 10px;
+  display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-bottom: 12px;
 }
 .evt__tag {
   font-family: var(--sans-eyebrow);
@@ -517,7 +575,7 @@ button:disabled { cursor: wait; opacity: 0.72; }
 .evt__time {
   font-family: var(--sans-eyebrow);
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(251,246,232,0.7);
+  color: var(--gold-onrose);
 }
 .evt__title {
   font-family: var(--serif-display); font-style: italic;
@@ -525,20 +583,9 @@ button:disabled { cursor: wait; opacity: 0.72; }
   line-height: 1.15;
 }
 .evt__desc {
-  margin: 0 0 14px;
+  margin: 0;
   font-size: 16px; color: rgba(251,246,232,0.78); line-height: 1.55;
 }
-.evt__link {
-  margin-top: auto;
-  text-decoration: none;
-  font-family: var(--sans-eyebrow);
-  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--gold-soft);
-  display: inline-flex; align-items: center; gap: 10px;
-  align-self: flex-start;
-  transition: gap 0.2s, color 0.2s;
-}
-.evt__link:hover { color: var(--ivory); gap: 14px; }
 .evt__corner {
   position: absolute; top: 14px; right: 14px;
   color: var(--gold-soft); opacity: 0.6;
@@ -1156,6 +1203,8 @@ button:disabled { cursor: wait; opacity: 0.72; }
   .nav__links { display: none; }
   .quienes__grid { grid-template-columns: 1fr; gap: 40px; }
   .pillars { grid-template-columns: 1fr; }
+  .week { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cal__rules { grid-template-columns: 1fr; max-width: 520px; }
   .cal__grid { grid-template-columns: 1fr; }
   .seasons__grid { grid-template-columns: repeat(2, 1fr); }
   .form-wrap { grid-template-columns: 1fr; }
@@ -1168,4 +1217,5 @@ button:disabled { cursor: wait; opacity: 0.72; }
   .hero__meta-sep { display: none; }
   .form { padding: 44px 24px 32px; }
   .seasons__grid { grid-template-columns: 1fr; }
+  .week { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

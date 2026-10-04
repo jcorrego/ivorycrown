@@ -146,8 +146,8 @@ function Hero() {
 
         <div className="hero__meta">
           <div className="hero__meta-item">
-            <div className="hero__meta-num">III</div>
-            <div className="hero__meta-label">Eventos a la Semana</div>
+            <div className="hero__meta-num">VI</div>
+            <div className="hero__meta-label">Días de Clase</div>
           </div>
           <span className="hero__meta-sep"><Star4 size={10}/></span>
           <div className="hero__meta-item">
@@ -247,30 +247,53 @@ function Quienes() {
 
 // ============ ACTIVIDADES Y EVENTOS ============
 
+const CLASS_TIME = "17:30 h";
+
+// Cada día tiene dos opciones; se hace una de las dos y se anuncia en Discord.
+const WEEK = [
+  { day: "Lun", weekday: "Lunes", options: ["Doma", "Actividad"] },
+  { day: "Mar", weekday: "Martes", options: ["Ruta", "Western"] },
+  { day: "Mié", weekday: "Miércoles", options: ["Doma", "Salto"] },
+  { day: "Jue", weekday: "Jueves", options: ["Salto", "Doma"] },
+  { day: "Vie", weekday: "Viernes", options: ["Western", "Ruta"] },
+  { day: "Sáb", weekday: "Sábado", options: ["Coreografía", "Coreografía"] },
+];
+
 function Actividades() {
-  const events = [
+  const disciplines = [
     {
-      dayShort: "Lun", weekday: "Lunes", time: "20:00 h",
-      tag: "Doma",
-      title: "Doma Clásica",
-      desc: "Una hora de doma en el picadero. Practicamos figuras y transiciones a buen ritmo. Apto para todos los niveles — se aprende sobre la marcha.",
-      tone: "moss"
+      name: "Doma",
+      uniform: "Uniforme principal",
+      desc: "Figuras y transiciones en el picadero. Apta para todos los niveles: se aprende sobre la marcha.",
     },
     {
-      dayShort: "Mié", weekday: "Miércoles", time: "20:30 h",
-      tag: "Coreografía",
-      title: "Coreografía a Caballo",
-      desc: "Ensayamos figuras grupales para los eventos del club. Es la actividad más divertida — y la que mejor queda en vídeo.",
-      tone: "gold"
+      name: "Ruta",
+      uniform: "Uniforme principal",
+      desc: "Paseo largo por Jorvik, cambiando de zona cada vez. Siempre en grupo, sin prisa, parando para hacer fotos.",
     },
     {
-      dayShort: "Sáb", weekday: "Sábado", time: "18:00 h",
-      tag: "Ruta",
-      title: "Ruta del Fin de Semana",
-      desc: "Paseo largo por Jorvik. Cambiamos de zona cada semana — siempre en grupo, sin prisa, parando para hacer fotos.",
-      tone: "cream"
+      name: "Coreografía",
+      uniform: "Uniforme principal",
+      desc: "Ensayamos figuras en grupo para los eventos del club. Es la clase más divertida, y la que mejor queda en vídeo.",
+    },
+    {
+      name: "Salto",
+      uniform: "Uniforme de salto",
+      desc: "Clase de salto en pista. Mientras no tengas el uniforme de salto, vienes con el principal.",
+    },
+    {
+      name: "Western",
+      uniform: "Uniforme western",
+      desc: "Clase de monta western. Mientras no tengas el uniforme western, vienes con el principal.",
+    },
+    {
+      name: "Actividad",
+      uniform: "Uniforme principal",
+      desc: "Una actividad distinta del club. Qué toca se cuenta en el anuncio del día.",
     },
   ];
+  const daysFor = (name) => WEEK.filter(d => d.options.includes(name)).map(d => d.day).join(" · ");
+  const tones = ["moss", "gold", "cream"];
 
   const traditions = [
     { season: "Primavera", title: "Carrera de Observación", note: "Recorrido por Jorvik resolviendo pistas y encontrando objetos escondidos en el camino." },
@@ -285,30 +308,63 @@ function Actividades() {
 
       <div className="cal__intro">
         <p>
-          Nos reunimos <strong>tres veces por semana</strong> para entrenar, ensayar y dar paseos largos. Cada estación, además, preparamos un evento especial para celebrarla.
+          Hay clase de <strong>lunes a sábado, a las 17:30 h</strong>. Cada día tiene dos disciplinas posibles y se hace una de las dos. Cada estación, además, preparamos un evento especial para celebrarla.
         </p>
       </div>
 
+      <div className="week">
+        {WEEK.map(d => {
+          const [first, second] = d.options;
+          return (
+            <article key={d.day} className="week__day">
+              <div className="week__name">{d.day}</div>
+              <div className="week__meta">{d.weekday}</div>
+              <div className="week__time">{CLASS_TIME}</div>
+              <div className="week__rule"></div>
+              {first === second ? (
+                <div className="week__opt">
+                  <div className="week__opt-label">Siempre</div>
+                  <div className="week__opt-name">{first}</div>
+                </div>
+              ) : (
+                <>
+                  <div className="week__opt">
+                    <div className="week__opt-label">Opción I</div>
+                    <div className="week__opt-name">{first}</div>
+                  </div>
+                  <div className="week__or">o</div>
+                  <div className="week__opt">
+                    <div className="week__opt-label">Opción II</div>
+                    <div className="week__opt-name">{second}</div>
+                  </div>
+                </>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      <ul className="cal__rules">
+        <li><span className="cal__rules-icon"><Sparkle size={9}/></span>La clase del día se anuncia en <strong>#anuncios</strong>.</li>
+        <li><span className="cal__rules-icon"><Sparkle size={9}/></span>Si no se anuncia ninguna, ese día es libre.</li>
+        <li><span className="cal__rules-icon"><Sparkle size={9}/></span>Si no puedes venir, justifícalo en <strong>#asistencia</strong>.</li>
+      </ul>
+
+      <div className="cal__head">
+        <Divider width={280}/>
+        <h3 className="cal__head-title">Las disciplinas</h3>
+        <p className="cal__head-sub">Qué hacemos en cada clase</p>
+      </div>
+
       <div className="cal__grid">
-        {events.map((e, i) => (
-          <article key={i} className={`evt evt--${e.tone}`}>
-            <div className="evt__date">
-              <div className="evt__day">{e.dayShort}</div>
-              <div className="evt__month">Semanal</div>
+        {disciplines.map((d, i) => (
+          <article key={d.name} className={`evt evt--${tones[i % tones.length]}`}>
+            <div className="evt__meta">
+              <span className="evt__tag">{d.uniform}</span>
+              <span className="evt__time">{daysFor(d.name)}</span>
             </div>
-            <div className="evt__divider"></div>
-            <div className="evt__body">
-              <div className="evt__meta">
-                <span className="evt__tag">{e.tag}</span>
-                <span className="evt__time">{e.weekday} · {e.time}</span>
-              </div>
-              <h3 className="evt__title">{e.title}</h3>
-              <p className="evt__desc">{e.desc}</p>
-              <a className="evt__link" href="#unete">
-                Apuntarse
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M0 5 L12 5 M8 1 L12 5 L8 9"/></svg>
-              </a>
-            </div>
+            <h3 className="evt__title">{d.name}</h3>
+            <p className="evt__desc">{d.desc}</p>
             <div className="evt__corner"><Sparkle size={10}/></div>
           </article>
         ))}
