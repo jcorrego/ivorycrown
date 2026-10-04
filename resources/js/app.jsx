@@ -469,6 +469,96 @@ function SectionHeader({ eyebrow, title, subtitle, light }) {
 
 // ============ INFORMACION DEL CLUB ============
 
+// Cada pieza: [prenda, nombre del artículo en el juego, precio]. Precio null = sin precio en la lista del club.
+const UNIFORMS = [
+  {
+    eye: "Uniforme principal",
+    title: "Doma",
+    img: "assets/uniform-doma.jpg",
+    alt: "Uniforme de doma de Opal Pearls — jersey de punto blanco, sombrero de copa negro y caballo blanco con manta de doma",
+    uses: "Doma · Coreografías · Rutas · Fotos oficiales · Otras actividades",
+    deadline: "1–2 meses",
+    horse: [
+      ["Silla de verano", "Sakura", "165 sc"],
+      ["Rozal negro", "Belle Glamour", "90 sc · 9000 js"],
+      ["Manta de doma de exhibición negra", "Belle Glamour", "99 sc · 9900 js"],
+      ["Protectores para patas negros", "Belle Glamour", "20 sc · 2000 js"],
+      ["Flor para la cola", "Amazona", "30 sc · 3000 js"],
+      ["Flor para melena", "Amazona", "30 sc · 3000 js"],
+    ],
+    rider: [
+      ["Botas de jinete", "Mezcla en Pera", "90 sc · 9000 js"],
+      ["Jersey de punto blanco", "Encanto Escandinavo", "100 sc · 9900 js"],
+      ["Sombrero de copa negro", "Belle Glamour", "80 sc · 8000 js"],
+      ["Pantalones de equitación", "Mezcla en Café", "80 sc · 8000 js"],
+      ["Guantes blancos (de preferencia)", null, null],
+    ],
+  },
+  {
+    eye: "Uniforme de salto",
+    title: "Salto",
+    img: "assets/uniform-salto.jpg",
+    alt: "Uniforme de salto de Opal Pearls — chaqueta marrón, pantalón blanco, casco y caballo blanco con vendas rosas",
+    uses: "Clases de salto",
+    deadline: "2 meses extra",
+    horse: [
+      ["Riendas de diseñador rosadas", null, "41 sc · 3800 js"],
+      ["Manta de salto", "Clase Mundial", "90 sc · 9000 js"],
+      ["Silla de salto", "Alumna de la Plaga", null],
+      ["Brida con medallón negra", "Belle Glamour", "90 sc · 9000 js"],
+      ["Protectores", "Dama Floral", "45 sc · 4500 js"],
+      ["Flor para la cola", "Amazona", "30 sc · 3000 js"],
+      ["Flor para melena", "Amazona", "30 sc · 3000 js"],
+    ],
+    rider: [
+      ["Chaqueta", "Amazona", "80 sc · 8000 js"],
+      ["Pantalones", "Al Sol", "45 sc · 4500 js"],
+      ["Botas de jinete", "Mezcla en Pera", "90 sc · 9000 js"],
+      ["Guantes blancos (de preferencia)", null, null],
+      ["Casco", "Mezcla en Pera", "80 sc · 8000 js"],
+    ],
+  },
+  {
+    eye: "Uniforme western",
+    title: "Western",
+    img: "assets/uniform-western.jpg",
+    alt: "Uniforme western de Opal Pearls — jersey crema, sombrero vaquero blanco y caballo blanco con silla western",
+    uses: "Clases de western",
+    deadline: "2 meses extra",
+    horse: [
+      ["Manta", "Dama Floral", "85 sc · 8500 js"],
+      ["Silla marrón claro", "Montaña Rocosa", "115 sc · 9900 js"],
+      ["Brida del lejano oeste", "Magnolia", "80 sc · 8000 js"],
+      ["Protectores", "Dama Floral", "45 sc · 4500 js"],
+      ["Flor para la cola", "Amazona", "30 sc · 3000 js"],
+      ["Flor para melena", "Amazona", "30 sc · 3000 js"],
+    ],
+    rider: [
+      ["Top con media cremallera", "Mezcla en Café", "70 sc · 7000 js"],
+      ["Pantalones", "Al Sol", "45 sc · 4500 js"],
+      ["Botas", "Inconformista", "55 sc · 5500 js"],
+      ["Guantes blancos (de preferencia)", null, null],
+      ["Sombrero del lejano oeste", "Adelaide", "80 sc · 8000 js"],
+    ],
+  },
+];
+
+function KitList({ icon, label, items }) {
+  return (
+    <div className="uni__kit">
+      <div className="info__kit-head">{icon}<span>{label}</span></div>
+      <ul className="uni__list">
+        {items.map(([piece, name, price], i) => (
+          <li key={i}>
+            <span className="uni__piece">{piece}{name && <> <em>{name}</em></>}</span>
+            {price && <span className="uni__price">{price}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function Info() {
   return (
     <section id="info" className="section section--cream info-sec">
@@ -476,24 +566,23 @@ function Info() {
 
       <div className="info__intro">
         <p>
-          Opal Pearls se reconoce por dos detalles: un <em>caballo</em> y un <em>uniforme</em>. Los usamos en los eventos del club — ceremonias, fotografías oficiales y las quedadas grandes de cada estación.
+          Opal Pearls se reconoce por su <em>caballo</em> y sus <em>uniformes</em>: uno principal para la doma, las coreografías, las rutas y las fotos oficiales, y dos más para las clases de salto y de western.
         </p>
       </div>
 
-      <div className="info__pair">
-        {/* Caballo */}
-        <article className="info__card">
-          <div className="info__num">I</div>
+      {/* Caballo */}
+      <article className="info__card info__card--wide">
+        <figure className="info__horse">
+          <div className="info__horse-frame">
+            <div className="info__horse-inner info__horse-inner--horse">
+              <img src="assets/horse-official.png" alt="Dutch Warmblood capa 7 — caballo oficial de Opal Pearls" className="info__horse-img"/>
+            </div>
+          </div>
+        </figure>
+        <div className="info__wide-body">
           <div className="info__eye">El caballo del club</div>
           <h3 className="info__title"><em>Dutch Warmblood</em><br/>Capa <span className="info__numeral">VII</span></h3>
           <div className="info__rule"></div>
-          <figure className="info__horse">
-            <div className="info__horse-frame">
-              <div className="info__horse-inner info__horse-inner--horse">
-                <img src="assets/horse-official.png" alt="Dutch Warmblood capa 7 — caballo oficial de Opal Pearls" className="info__horse-img"/>
-              </div>
-            </div>
-          </figure>
           <p className="info__lede">
             Un cremello luminoso de crines plateadas. Lo lucimos en los eventos importantes, siempre con crines trenzadas y un pequeño detalle a tono con la estación.
           </p>
@@ -501,54 +590,52 @@ function Info() {
             <div className="info__fact"><dt>Raza</dt><dd>Dutch Warmblood</dd></div>
             <div className="info__fact"><dt>Capa</dt><dd>Nº 7 · Cremello</dd></div>
             <div className="info__fact"><dt>Crines</dt><dd>Trenzadas</dd></div>
-            <div className="info__fact"><dt>Detalle</dt><dd>Lazo rosa</dd></div>
+            <div className="info__fact"><dt>Detalle</dt><dd>Flores Amazona</dd></div>
           </dl>
-        </article>
+        </div>
+      </article>
 
-        {/* Uniforme */}
-        <article className="info__card">
-          <div className="info__num">II</div>
-          <div className="info__eye">El uniforme oficial</div>
-          <h3 className="info__title">Marfil &amp; Rosa<br/>del <em>club</em></h3>
-          <div className="info__rule"></div>
-          <figure className="info__horse">
-            <div className="info__horse-frame">
-              <div className="info__horse-inner info__horse-inner--uniform">
-                <img src="assets/uniform-official.png" alt="Uniforme oficial de Opal Pearls — jersey trenzado marfil y monturas rosa" className="info__horse-img"/>
-              </div>
-            </div>
-          </figure>
-          <p className="info__lede">
-            Jersey de trenzas marfil, pantalón crema y casco a juego. Las monturas y vendas en rosa palo, para dar la nota característica del club.
-          </p>
-          <div className="info__kit">
-            <div className="info__kit-col">
-              <div className="info__kit-head"><HorseShoe size={16}/><span>Caballo</span></div>
-              <ul className="info__kit-list">
-                <li>Riendas de diseñador rosadas</li>
-                <li>Silla de verano <em>Sakura</em></li>
-                <li>Manta de exhibición <em>Belle Glamour</em></li>
-                <li>Protectores para patas <em>Belle Glamour</em></li>
-              </ul>
-            </div>
-            <div className="info__kit-col">
-              <div className="info__kit-head"><PearlMark size={16} color="currentColor"/><span>Personaje</span></div>
-              <ul className="info__kit-list">
-                <li>Casco <em>Paseo al Ocaso</em> · beige</li>
-                <li>Jersey de punto blanco <em>Encanto Escandinavo</em></li>
-                <li>Guantes <em>Belle Glamour</em></li>
-                <li>Zapatos marineros color marrón</li>
-                <li>Pantalones <em>Al Sol</em></li>
-              </ul>
-            </div>
-          </div>
-        </article>
+      {/* Uniformes */}
+      <div className="uni-head">
+        <Divider width={280}/>
+        <h3 className="uni-head__title">Los uniformes</h3>
+        <p className="uni-head__sub">Uno principal y dos para las clases</p>
       </div>
+
+      <div className="uni-grid">
+        {UNIFORMS.map((u, i) => (
+          <article key={u.title} className="info__card uni">
+            <div className="info__num">{["I", "II", "III"][i]}</div>
+            <div className="uni__side">
+              <div className="info__eye">{u.eye}</div>
+              <h3 className="info__title">{u.title}</h3>
+              <div className="info__rule"></div>
+              <figure className="info__horse">
+                <div className="info__horse-frame">
+                  <div className="info__horse-inner info__horse-inner--uniform">
+                    <img src={u.img} alt={u.alt} className="uni__img" loading="lazy"/>
+                  </div>
+                </div>
+              </figure>
+            </div>
+            <div className="uni__body">
+              <dl className="uni__meta">
+                <div><dt>Se usa en</dt><dd>{u.uses}</dd></div>
+                <div><dt>Plazo</dt><dd>{u.deadline}</dd></div>
+              </dl>
+              <KitList icon={<HorseShoe size={16}/>} label="Caballo" items={u.horse}/>
+              <KitList icon={<PearlMark size={16} color="currentColor"/>} label="Personaje" items={u.rider}/>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p className="uni-legend">Precios en star coins (sc) y jorvik shillings (js)</p>
 
       <div className="info__note-row">
         <span className="info__note-icon"><Sparkle size={10}/></span>
         <p>
-          Para el día a día puedes montar y vestir lo que prefieras — el uniforme y el caballo solo se piden para los eventos oficiales del club.
+          El uniforme principal hay que conseguirlo en un plazo de 1–2 meses. El de salto y el de western tienen 2 meses extra porque no son principales; mientras no los tengas, usa el principal. Fuera de las actividades del club puedes montar y vestir lo que prefieras.
         </p>
       </div>
     </section>
