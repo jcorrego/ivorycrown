@@ -665,48 +665,6 @@ button:disabled { cursor: wait; opacity: 0.72; }
   color: var(--ink-soft);
   margin: 8px 0 32px;
 }
-.form__row {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-}
-.req { color: var(--gold); font-size: 0.7em; }
-
-.field { display: flex; flex-direction: column; margin-bottom: 20px; }
-.field__label {
-  font-family: var(--sans-eyebrow);
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 8px;
-}
-.field input[type="text"],
-.field input[type="number"],
-.field input[type="email"],
-.field select,
-.field textarea {
-  font-family: var(--serif-body);
-  font-size: 17px;
-  color: var(--ink);
-  background: var(--cream);
-  border: 1px solid var(--line);
-  padding: 12px 14px;
-  width: 100%;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s;
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--gold);
-  background: var(--ivory);
-}
-.field textarea { resize: vertical; font-family: var(--serif-body); line-height: 1.55; }
-.field--err input, .field--err textarea, .field--err select {
-  border-color: var(--rose);
-  background: #fdf3f3;
-}
-.field__hint {
-  font-size: 13px;
-  color: var(--ink-soft);
-  margin-top: 8px;
-  font-style: italic;
-}
 .field__link {
   color: var(--gold);
   text-decoration: none;
@@ -715,129 +673,35 @@ button:disabled { cursor: wait; opacity: 0.72; }
 }
 .field__link:hover { color: var(--moss); border-bottom-color: var(--moss); }
 
-.success__actions {
-  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-  margin-top: 8px;
+/* join steps */
+.join__steps {
+  list-style: none; padding: 0; margin: 0 0 32px;
+  display: flex; flex-direction: column; gap: 22px;
 }
-.success__msg--cta {
-  margin-top: 24px !important;
-  padding: 16px 20px;
-  background: var(--cream);
-  border-left: 2px solid var(--gold);
-  font-style: italic;
-  text-align: left;
-}
-.form__err {
-  font-family: var(--sans-eyebrow);
-  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--rose); margin-top: 6px;
-}
-.form__err--submit {
-  text-align: center;
-  margin: 0 0 14px;
-  line-height: 1.5;
-}
-.form__count {
-  font-family: var(--sans-eyebrow);
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink-soft); text-align: right; margin-top: 4px;
-}
-
-/* segmented */
-.seg {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-  border: 1px solid var(--line);
-}
-.seg__btn {
-  background: var(--cream);
-  border: none;
-  padding: 12px 8px;
-  font-family: var(--sans-eyebrow);
-  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink-soft);
-  border-right: 1px solid var(--line);
-  transition: all 0.2s;
-}
-.seg__btn:last-child { border-right: none; }
-.seg__btn:hover { background: var(--ivory); color: var(--moss); }
-.seg__btn--active { background: var(--moss); color: var(--ivory); }
-
-/* chips */
-.chips { display: flex; flex-wrap: wrap; gap: 10px; }
-.chip {
-  background: var(--cream);
-  border: 1px solid var(--line);
-  padding: 10px 16px;
-  font-family: var(--serif-body);
-  font-size: 15px;
-  color: var(--ink-soft);
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: all 0.2s;
-}
-.chip:hover { background: var(--ivory); border-color: var(--gold); }
-.chip--on { background: var(--moss); border-color: var(--moss); color: var(--ivory); }
-.chip--on svg { color: var(--gold-soft); }
-
-/* checkbox */
-.check {
-  position: relative;
-  display: grid; grid-template-columns: 22px 1fr; gap: 12px;
+.join__step {
+  display: grid; grid-template-columns: 44px 1fr; gap: 18px;
   align-items: start;
-  cursor: pointer;
-  margin: 8px 0 24px;
 }
-.check input {
-  position: absolute;
-  width: 20px; height: 20px;
-  margin: 2px 0 0;
-  opacity: 0;
-  cursor: pointer;
+.join__num {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif-display); font-style: italic;
+  font-size: 18px; color: var(--moss);
 }
-.check__box {
-  width: 20px; height: 20px;
-  border: 1px solid var(--line); background: var(--cream);
-  position: relative;
-  margin-top: 2px;
-  transition: all 0.15s;
+.join__step-title {
+  font-family: var(--serif-display); font-style: italic;
+  font-size: 22px; color: var(--moss);
+  margin: 6px 0 4px;
 }
-.check input:checked + .check__box {
-  background: var(--moss); border-color: var(--moss);
-}
-.check input:checked + .check__box::after {
-  content: ""; position: absolute;
-  left: 6px; top: 2px; width: 6px; height: 11px;
-  border: solid var(--gold-soft);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-.check__label { font-size: 15px; color: var(--ink-soft); line-height: 1.5; }
-.check__label a { color: var(--moss); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.join__step-text { margin: 0; font-size: 16px; color: var(--ink-soft); line-height: 1.55; }
 
 .form__foot {
   text-align: center; margin-top: 16px;
   font-family: var(--serif-display); font-style: italic;
   font-size: 14px; color: var(--ink-soft);
 }
-
-/* success */
-.success {
-  max-width: 640px; margin: 0 auto;
-  text-align: center;
-  background: var(--ivory);
-  border: 1px solid var(--gold);
-  padding: 60px 40px;
-  box-shadow: var(--shadow-card);
-  display: flex; flex-direction: column; align-items: center;
-}
-.success::before {
-  content: ""; position: absolute;
-}
-.success__crest { margin-bottom: 20px; }
-.success__title {
-  font-family: var(--serif-display); font-style: italic;
-  font-size: 44px; color: var(--moss); margin: 0 0 16px;
-}
-.success__msg { font-size: 17px; color: var(--ink-soft); margin: 18px 0; }
 
 /* ============ NORMAS MODAL ============ */
 .modal {
@@ -1232,9 +1096,6 @@ button:disabled { cursor: wait; opacity: 0.72; }
   .seasons__grid { grid-template-columns: repeat(2, 1fr); }
   .form-wrap { grid-template-columns: 1fr; }
   .hero__corner { display: none; }
-  .form__row { grid-template-columns: 1fr; }
-  .seg { grid-template-columns: repeat(2, 1fr); }
-  .seg__btn:nth-child(2) { border-right: none; }
 }
 @media (max-width: 560px) {
   .section { padding: 80px 20px; }

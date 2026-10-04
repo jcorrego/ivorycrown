@@ -120,6 +120,4 @@ return [
         'name' => env('MAIL_REPLY_TO_NAME', env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel'))),
     ],
 
-    'club_applications_to' => env('CLUB_APPLICATIONS_MAIL_TO', 'isabellaorregob@icloud.com'),
-
 ];

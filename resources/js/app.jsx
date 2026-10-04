@@ -336,136 +336,16 @@ function Actividades() {
   );
 }
 
-// ============ UNETE AL CLUB (FORM) ============
+// ============ UNETE AL CLUB ============
+
+const JOIN_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfnJx2U0VjNfQxOS44GoX2rmg_IjSdocuztGJKZb2VxnrjZsw/viewform";
+const DISCORD_URL = "https://discord.gg/g7H8k9Ycr";
 
 function Unete() {
-  const [form, setForm] = useState({
-    nombre: "",
-    personaje: "",
-    nivel: "",
-    edad: "",
-    discord: "",
-    horario: ["Tardes"],
-    raza: "Cualquiera",
-    motivo: "",
-    intereses: [],
-    consentimiento: false,
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [touched, setTouched] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-  const toggleHorario = (it) => setForm(f => ({
-    ...f,
-    horario: f.horario.includes(it) ? f.horario.filter(x => x !== it) : [...f.horario, it]
-  }));
-  const toggleInterest = (it) => setForm(f => ({
-    ...f,
-    intereses: f.intereses.includes(it) ? f.intereses.filter(x => x !== it) : [...f.intereses, it]
-  }));
-
-  const errors = {
-    nombre: !form.nombre ? "El nombre es necesario" : null,
-    personaje: !form.personaje ? "El nombre del personaje es necesario" : null,
-    discord: !form.discord ? "El Discord es necesario para contactarte" : null,
-    horario: !form.horario.length ? "Elige al menos una franja horaria" : null,
-    motivo: form.motivo.length < 20 ? "Cuéntanos un poco más (mín. 20 caracteres)" : null,
-    consentimiento: !form.consentimiento ? "Debes aceptar las normas del club" : null,
-  };
-  const valid = !Object.values(errors).some(Boolean);
-
-  const submit = async (e) => {
+  const openNormas = (e) => {
     e.preventDefault();
-    setTouched({ nombre: 1, personaje: 1, discord: 1, horario: 1, motivo: 1, consentimiento: 1 });
-    if (!valid) return;
-    setSubmitting(true);
-    setSubmitError("");
-
-    try {
-      const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-      const response = await fetch("/solicitudes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "X-CSRF-TOKEN": csrf,
-        },
-        body: JSON.stringify(form),
-      });
-
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        const firstError = payload?.errors ? Object.values(payload.errors).flat()[0] : null;
-        throw new Error(firstError || payload?.message || "No hemos podido enviar la solicitud.");
-      }
-
-      setSubmitted(true);
-      window.scrollTo({ top: document.getElementById("unete").offsetTop - 80, behavior: "smooth" });
-    } catch (error) {
-      setSubmitError(error.message || "No hemos podido enviar la solicitud.");
-    } finally {
-      setSubmitting(false);
-    }
+    window.dispatchEvent(new CustomEvent("open-normas"));
   };
-
-  const interests = ["Carreras", "Paseos & rol", "Fotografía", "Entrenamiento", "Misiones en grupo", "Eventos sociales"];
-  const scheduleOptions = ["Mañanas", "Tardes", "Noches", "Fines de semana"];
-  const horseOptions = [
-    "Cualquiera",
-    "Dutch Warmblood",
-    "Andaluz",
-    "Friesian",
-    "Pura Raza Inglesa",
-    "Akhal-Teké",
-    "Árabe",
-    "Mustang",
-    "Lusitano",
-    "Lipizzano",
-    "Paso Fino",
-    "Jorvik Wild Horse",
-    "Pony de Jorvik",
-    "Caballo de la Estrella del Norte",
-    "Quarter Horse Americano",
-    "Paint Horse Americano",
-    "Appaloosa",
-    "Percherón",
-    "Shire",
-  ];
-
-  if (submitted) {
-    return (
-      <section id="unete" className="section section--cream">
-        <SectionHeader eyebrow="Capítulo IV" title="¡Solicitud recibida!" subtitle="Te responderemos pronto"/>
-        <div className="success">
-          <div className="success__crest"><PearlMark size={72} color="var(--gold)"/></div>
-          <h3 className="success__title">¡Bienvenida, {form.nombre.split(" ")[0] || "amiga"}!</h3>
-          <Divider width={280}/>
-          <p className="success__msg">
-            Hemos recibido tu solicitud. Alguien del club te escribirá al buzón del juego
-            de <strong>{form.personaje}</strong> en unos <strong>tres días</strong> para invitarte
-            a una primera cabalgata de prueba.
-          </p>
-          <p className="success__msg">
-            Mientras tanto, deja a <strong>{form.personaje}</strong> a punto — cepillado, herraduras frescas y un atuendo bonito a tono con la estación.
-          </p>
-          <p className="success__msg success__msg--cta">
-            Revisa tu correo del juego estos días para no perderte nuestra respuesta.
-          </p>
-          <div className="success__actions">
-            <a href="#inicio" className="btn btn--primary">
-              <span>Volver al inicio</span>
-              <span className="btn__shine" aria-hidden="true"></span>
-            </a>
-            <button className="btn btn--ghost" onClick={() => { setSubmitted(false); setSubmitError(""); setForm({ ...form, motivo: "", consentimiento: false }); }}>
-              Enviar otra solicitud
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section id="unete" className="section section--cream">
@@ -491,111 +371,53 @@ function Unete() {
           </div>
         </div>
 
-        <form className="form" onSubmit={submit} noValidate>
+        <div className="form join">
           <div className="form__seal">
             <PearlMark size={32} color="var(--gold)"/>
           </div>
           <h3 className="form__title">Preséntate</h3>
-          <p className="form__sub">Los campos con <span className="req">✦</span> son obligatorios.</p>
+          <p className="form__sub">Tres pasos y estás dentro</p>
 
-          <div className="form__row">
-            <Field label="Tu nombre" required err={touched.nombre && errors.nombre}>
-              <input type="text" value={form.nombre} onChange={e => set("nombre", e.target.value)}
-                onBlur={() => setTouched(t => ({ ...t, nombre: 1 }))} placeholder="Como prefieras que te llamemos"/>
-            </Field>
-            <Field label="Edad">
-              <input type="number" min="1" max="99" value={form.edad} onChange={e => set("edad", e.target.value)} placeholder="Tu edad"/>
-            </Field>
-          </div>
+          <ol className="join__steps">
+            <li className="join__step">
+              <span className="join__num">I</span>
+              <div>
+                <div className="join__step-title">Lee las normas</div>
+                <p className="join__step-text">
+                  Échale un vistazo a las <a href="#" onClick={openNormas} className="field__link">normas del club</a> para saber cómo cuidamos el buen ambiente.
+                </p>
+              </div>
+            </li>
+            <li className="join__step">
+              <span className="join__num">II</span>
+              <div>
+                <div className="join__step-title">Entra en nuestro Discord</div>
+                <p className="join__step-text">
+                  Ahí avisamos de los eventos y te escribiremos. <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="field__link">Únete al servidor del club</a>.
+                </p>
+              </div>
+            </li>
+            <li className="join__step">
+              <span className="join__num">III</span>
+              <div>
+                <div className="join__step-title">Rellena la solicitud</div>
+                <p className="join__step-text">
+                  Cuéntanos quién eres, cómo se llama tu personaje y por qué te gustaría unirte a Opal Pearls.
+                </p>
+              </div>
+            </li>
+          </ol>
 
-          <div className="form__row">
-            <Field label="Nombre del personaje" required err={touched.personaje && errors.personaje}>
-              <input type="text" value={form.personaje} onChange={e => set("personaje", e.target.value)}
-                onBlur={() => setTouched(t => ({ ...t, personaje: 1 }))} placeholder="Ej. Rowan Whitemoor"/>
-            </Field>
-            <Field label="Nivel actual">
-              <input type="number" min="1" max="30" value={form.nivel} onChange={e => set("nivel", e.target.value)} placeholder="1 — 30"/>
-            </Field>
-          </div>
-
-          <Field label="Discord" required err={touched.discord && errors.discord} hint={<span>¿Aún no estás dentro? <a href="https://discord.gg/4zYYGjcEw" target="_blank" rel="noopener noreferrer" className="field__link">Únete al servidor del club</a></span>}>
-            <input type="text" value={form.discord} onChange={e => set("discord", e.target.value)}
-              onBlur={() => setTouched(t => ({ ...t, discord: 1 }))} placeholder="usuario#0000"/>
-          </Field>
-
-          <Field label="Horario habitual de juego" required err={touched.horario && errors.horario}>
-            <div className="chips">
-              {scheduleOptions.map(opt => (
-                <button key={opt} type="button"
-                  className={form.horario.includes(opt) ? "chip chip--on" : "chip"}
-                  onClick={() => toggleHorario(opt)}>
-                  {form.horario.includes(opt) && <Star4 size={10}/>}
-                  {opt}
-                </button>
-              ))}
-            </div>
-          </Field>
-
-          <Field label="Raza preferida de tu caballo">
-            <select value={form.raza} onChange={e => set("raza", e.target.value)}>
-              {horseOptions.map(opt => <option key={opt}>{opt}</option>)}
-            </select>
-          </Field>
-
-          <Field label="¿Qué actividades te interesan más?">
-            <div className="chips">
-              {interests.map(it => (
-                <button key={it} type="button"
-                  className={form.intereses.includes(it) ? "chip chip--on" : "chip"}
-                  onClick={() => toggleInterest(it)}>
-                  {form.intereses.includes(it) && <Star4 size={10}/>}
-                  {it}
-                </button>
-              ))}
-            </div>
-          </Field>
-
-          <Field label="¿Por qué te gustaría unirte a Opal Pearls?" required err={touched.motivo && errors.motivo}>
-            <textarea rows="5" value={form.motivo} onChange={e => set("motivo", e.target.value)}
-              onBlur={() => setTouched(t => ({ ...t, motivo: 1 }))}
-              placeholder="Cuéntanos un poco sobre ti, cómo te gusta jugar y qué esperas del club…"/>
-            <div className="form__count">{form.motivo.length} caracteres</div>
-          </Field>
-
-          <label className="check">
-            <input type="checkbox" checked={form.consentimiento}
-              onChange={e => set("consentimiento", e.target.checked)}
-              onBlur={() => setTouched(t => ({ ...t, consentimiento: 1 }))}/>
-            <span className="check__box"></span>
-            <span className="check__label">
-              He leído las <a href="#" onClick={e => { e.preventDefault(); window.dispatchEvent(new CustomEvent("open-normas")); }}>normas del club</a> y prometo cuidar el buen ambiente.
-            </span>
-          </label>
-          {touched.consentimiento && errors.consentimiento && <div className="form__err">{errors.consentimiento}</div>}
-
-          {submitError && <div className="form__err form__err--submit">{submitError}</div>}
-
-          <button type="submit" className="btn btn--primary btn--block" disabled={submitting}>
-            <span>{submitting ? "Enviando..." : "Enviar solicitud"}</span>
+          <a href={JOIN_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--block">
+            <span>Abrir el formulario de solicitud</span>
             <span className="btn__shine" aria-hidden="true"></span>
-          </button>
+          </a>
           <div className="form__foot">
-            Te responderemos en unos tres días.
+            Se abre en Google Forms. Te responderemos en unos tres días.
           </div>
-        </form>
+        </div>
       </div>
     </section>
-  );
-}
-
-function Field({ label, required, err, children, hint }) {
-  return (
-    <label className={`field ${err ? "field--err" : ""}`}>
-      <div className="field__label">{label} {required && <span className="req">✦</span>}</div>
-      {children}
-      {err && <div className="form__err">{err}</div>}
-      {hint && !err && <div className="field__hint">{hint}</div>}
-    </label>
   );
 }
 
@@ -621,7 +443,7 @@ function Footer() {
           <span>·</span>
           <a href="#unete">Únete</a>
           <span>·</span>
-          <a href="https://discord.gg/4zYYGjcEw" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer">Discord</a>
           <span>·</span>
           <a href="#" onClick={e => { e.preventDefault(); window.dispatchEvent(new CustomEvent("open-normas")); }}>Normas</a>
         </div>
