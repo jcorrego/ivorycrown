@@ -127,7 +127,6 @@ function Hero() {
         </div>
         <h1 className="hero__title">
           <span className="hero__title-line">Opal</span>
-          <span className="hero__title-amp">&</span>
           <span className="hero__title-line">Pearls</span>
         </h1>
         <div className="hero__divider"><Divider width={420}/></div>

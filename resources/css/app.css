@@ -254,14 +254,6 @@ button:disabled { cursor: wait; opacity: 0.72; }
   display: flex; align-items: baseline; gap: 0.18em;
   font-style: italic;
 }
-.hero__title-amp {
-  font-family: var(--serif-display);
-  font-style: italic;
-  color: var(--gold);
-  font-size: 0.55em;
-  font-weight: 400;
-  transform: translateY(-0.18em);
-}
 .hero__title-line { display: inline-block; }
 .hero__divider { color: var(--gold); margin: 28px 0 24px; }
 .hero__lede {
