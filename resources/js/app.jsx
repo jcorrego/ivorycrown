@@ -97,7 +97,7 @@ function Nav({ activeSection }) {
             </li>
           ))}
         </ul>
-        <a href="#unete" className="nav__cta">Quiero unirme</a>
+        <a href={JOIN_FORM_URL} target="_blank" rel="noopener noreferrer" className="nav__cta">Quiero unirme</a>
       </div>
     </nav>
   );
@@ -137,7 +137,7 @@ function Hero() {
           los paseos sin prisa y las amistades de Jorvik.
         </p>
         <div className="hero__cta-row">
-          <a href="#unete" className="btn btn--primary">
+          <a href={JOIN_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
             <span>Quiero unirme</span>
             <span className="btn__shine" aria-hidden="true"></span>
           </a>
